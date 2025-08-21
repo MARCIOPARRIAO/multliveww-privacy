@@ -1,1 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MultLiveWW - Legal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f8f9fa;
+      color: #333;
+      text-align: center;
+    }
+    h1 {
+      color: #007bff;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin: 15px 0;
+    }
+    a {
+      text-decoration: none;
+      color: #007bff;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    a:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>MultLiveWW</h1>
+  <p>Bem-vindo à página oficial de <b>Política de Privacidade</b> e <b>Termos de Uso</b>.</p>
+  
+  <ul>
+    <li><a href="multiveww-privacy">📜 Política de Privacidade</a></li>
+    <li><a href="terms.html">⚖️ Termos de Uso</a></li>
+  </ul>
+</body>
+</html>
+
 
