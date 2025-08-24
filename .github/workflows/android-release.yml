@@ -1,0 +1,51 @@
+name: Android Release
+
+on:
+  workflow_dispatch:   # permite rodar manualmente no GitHub Actions
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      APP_DIR: .                          # raiz do app (ajuste se precisar)
+      PACKAGE_NAME: com.multlive.worldwide
+      KEYSTORE_FILE: upload-keystore.jks
+      KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      KEY_PASSWORD: ${{ secrets.ANDROID_KEY_ALIAS_PASSWORD }}
+      STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.2'
+
+      - name: Decode Keystore
+        run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > ${{ env.KEYSTORE_FILE }}
+
+      - name: Get Flutter dependencies
+        run: flutter pub get
+        working-directory: ${{ env.APP_DIR }}
+
+      - name: Build release AAB
+        run: flutter build appbundle --release \
+              --build-name=1.0.0 \
+              --build-number=${{ github.run_number }}
+        working-directory: ${{ env.APP_DIR }}
+
+      - name: Upload AAB artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-aab
+          path: ${{ env.APP_DIR }}/build/app/outputs/bundle/release/app-release.aab
+
